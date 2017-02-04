@@ -56,6 +56,10 @@
     [self updateView];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    return textView.text.length + (text.length - range.length) <= 140;
+}
+
 - (void)updateView{
     self.tweetContent = self.tweetTextField.text;
     [self.keyboardAccessoryView updateCharacterCount:[self.tweetTextField.text length]];
