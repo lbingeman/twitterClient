@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ToolbarView">
+            <rect key="frame" x="0.0" y="0.0" width="423" height="57"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ls9-i7-T6p">
+                    <rect key="frame" x="0.0" y="0.0" width="423" height="57"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8t-Y4-2MI">
+                            <rect key="frame" x="0.0" y="0.0" width="141" height="57"/>
+                            <state key="normal" image="reply-icon.png"/>
+                            <connections>
+                                <action selector="replyButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="pLW-2k-Kwt"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2H1-9U-3gx">
+                            <rect key="frame" x="141" y="0.0" width="141" height="57"/>
+                            <state key="normal" image="retweet-icon.png"/>
+                            <connections>
+                                <action selector="retweetButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="IBP-ZV-qjn"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Io7-ej-Esx">
+                            <rect key="frame" x="282" y="0.0" width="141" height="57"/>
+                            <state key="normal" image="favor-icon.png"/>
+                            <connections>
+                                <action selector="favouriteButtonPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="3QH-DA-h6E"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="2H1-9U-3gx" firstAttribute="width" secondItem="b8t-Y4-2MI" secondAttribute="width" id="fnH-Gh-M5a"/>
+                        <constraint firstItem="Io7-ej-Esx" firstAttribute="width" secondItem="2H1-9U-3gx" secondAttribute="width" id="j5l-bV-KWl"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="ls9-i7-T6p" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="NRi-IY-PHr"/>
+                <constraint firstItem="ls9-i7-T6p" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="e6c-mC-vMe"/>
+                <constraint firstItem="ls9-i7-T6p" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="g1w-wD-eKg"/>
+                <constraint firstItem="ls9-i7-T6p" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="q70-qE-tDE"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="favouriteButton" destination="Io7-ej-Esx" id="5lN-fb-sgW"/>
+                <outlet property="replyButton" destination="b8t-Y4-2MI" id="mKZ-yp-a82"/>
+                <outlet property="retweetButton" destination="2H1-9U-3gx" id="pqL-SE-vyc"/>
+            </connections>
+            <point key="canvasLocation" x="57.5" y="-250.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="favor-icon.png" width="30" height="30"/>
+        <image name="reply-icon.png" width="30" height="30"/>
+        <image name="retweet-icon.png" width="30" height="30"/>
+    </resources>
+</document>
