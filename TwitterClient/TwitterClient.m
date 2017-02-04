@@ -76,22 +76,15 @@ NSString * const authorizationURL = @"https://api.twitter.com/oauth/authorize?oa
 
 #pragma mark get methods
 - (void)getMoreTimelineTweetsAfter:(NSString*)lastLoadedTweetID completion:(void(^)(NSArray<Tweet*>* tweets, NSError* error))completion {
-    [self getTweetsWithCall:@"1.1/statuses/home_timeline.json"  parameters:@{@"max_id":[self getCorrectLastLoadedTweet:lastLoadedTweetID]} completion:completion];
+    [self getTweetsWithCall:@"1.1/statuses/home_timeline.json"  parameters:@{@"max_id":lastLoadedTweetID} completion:completion];
 }
 
 - (void)getMoreUserFeedTweetsWithUserID:(NSString*)userID lastTweet:(NSString*)lastLoadedTweetID completion:(void(^)(NSArray<Tweet*>* tweets, NSError* error))completion{
-     [self getTweetsWithCall:@"1.1/statuses/user_timeline.json"  parameters:@{@"screen_name":userID,@"max_id":[self getCorrectLastLoadedTweet:lastLoadedTweetID]} completion:completion];
+     [self getTweetsWithCall:@"1.1/statuses/user_timeline.json"  parameters:@{@"screen_name":userID,@"max_id":lastLoadedTweetID} completion:completion];
 }
 
 - (void)getMoreMentionTweetsAfter:(NSString*)lastLoadedTweetID completion:(void(^)(NSArray<Tweet*>* tweets, NSError* error))completion {
-    
-    [self getTweetsWithCall:@"1.1/statuses/mentions_timeline.json" parameters:@{@"max_id":[self getCorrectLastLoadedTweet:lastLoadedTweetID]} completion:completion];
-}
-
-- (NSString*)getCorrectLastLoadedTweet:(NSString*)tweetID{
-    float numberTweetID = [tweetID floatValue];
-    numberTweetID++;
-    return [NSString stringWithFormat:@"%f",numberTweetID];
+    [self getTweetsWithCall:@"1.1/statuses/mentions_timeline.json" parameters:@{@"max_id":lastLoadedTweetID} completion:completion];
 }
 
 - (void)getTwitterFeedWithCompletion:(void(^)(NSArray<Tweet*>* tweets, NSError* error))completion{
@@ -108,8 +101,10 @@ NSString * const authorizationURL = @"https://api.twitter.com/oauth/authorize?oa
 
 - (void)getTweetsWithCall:(NSString*)call parameters:(NSDictionary*)parameters completion:(void(^)(NSArray<Tweet*>* tweets, NSError* error))completion {
     [[TwitterClient sharedInstance] GET:call parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray<Tweet*> *tweets = [Tweet tweetsWithArray:responseObject];
         
+        NSArray *mutedResponseObjectForReply = ([responseObject count] == 1) ? nil : [responseObject subarrayWithRange: NSMakeRange(1, [responseObject count]-1)];
+        
+        NSArray<Tweet*> *tweets = [Tweet tweetsWithArray:([parameters objectForKey:@"max_id"] ? mutedResponseObjectForReply :  responseObject)];
         completion(tweets,nil);
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         completion(nil,error);

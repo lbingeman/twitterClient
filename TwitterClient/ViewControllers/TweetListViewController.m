@@ -75,9 +75,6 @@
     self.loadingMoreView.hidden = YES;
     [self.tweetListTable addSubview:self.loadingMoreView];
     
-//    var insets = tableView.contentInset;
-//    insets.bottom += InfiniteScrollActivityView.defaultHeight;
-//    tableView.contentInset = insets
     UIEdgeInsets insets = self.tweetListTable.contentInset;
     insets.bottom += [InfiniteScrollActivityView defaultHeight];
     self.tweetListTable.contentInset = insets;
@@ -105,6 +102,7 @@
 }
 
 - (void)refreshTweets:(UIRefreshControl*)refreshControl {
+    NSLog(@"Refresh!");
     [self getTweetsWithCompletion:^{
         [refreshControl endRefreshing];
     }];
@@ -113,6 +111,7 @@
 - (void)getTweetsWithCompletion:(void(^)())completion{
     
     void(^customCompletion)(NSArray<Tweet*>*,NSError*) = ^(NSArray<Tweet*>* tweets,NSError* error){
+        NSLog(@"Got new tweets");
         self.tweets = tweets;
         [self.tweetListTable reloadData];
         if(completion) completion();
